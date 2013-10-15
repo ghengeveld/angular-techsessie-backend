@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+function start_api() {
+  node ./script/api.js
+}
+
+start_api
