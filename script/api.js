@@ -76,16 +76,18 @@ app.post('/api/entries', function(request, response) {
     newEntry.id = nextEntryId++;
     entries.push(newEntry);
     response.send(200, newEntry);
+  } else {
+    response.send(400);
   }
-  response.send(400);
 });
 
 app.get('/api/entries/:id', function(request, response) {
   var entry = findEntryById(request.param('id'));
   if (entry) {
     sendJSON(response, entry);
+  } else {
+    response.send(404);
   }
-  response.send(404);
 });
 
 app.put('/api/entries/:id', function(request, response) {
@@ -94,8 +96,9 @@ app.put('/api/entries/:id', function(request, response) {
   if (originalEntry && newEntry) {
     var entry = _.extend(originalEntry, newEntry);
     sendJSON(response, entry);
+  } else {
+    response.send(404);
   }
-  response.send(404);
 });
 
 app.delete('/api/entries/:id', function(request, response) {
@@ -103,8 +106,9 @@ app.delete('/api/entries/:id', function(request, response) {
   if (entry) {
     entries.splice(entries.indexOf(entry), 1);
     response.send(200);
+  } else {
+    response.send(404);
   }
-  response.send(404);
 });
 
 // Start the application.
